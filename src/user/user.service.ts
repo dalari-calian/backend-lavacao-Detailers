@@ -14,7 +14,7 @@ export class UserService {
         return this.prisma.user.findUnique({where: {id:Number(id)}})
     }
 
-    async createUser(data: User): Promise<User> {
+    async createUser(data:User): Promise<User> {
         return this.prisma.user.create({
             data,
         })
@@ -32,4 +32,18 @@ export class UserService {
             where: {id:Number(id)},
         })
     }
+
+    async validateLogin(login:string, password:string): Promise<User | null> {
+        const user = await this.prisma.user.findFirst({
+          where: {
+            login,
+          },
+        });
+      
+        if (user && user.password === password) {
+          return user;
+        }
+      
+        return null;
+    }      
 }
