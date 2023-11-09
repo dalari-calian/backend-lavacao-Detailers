@@ -47,7 +47,6 @@ export class UserController{
             return response.status(HttpStatus.OK).json({
                 status: 'OK!',
                 message: 'Login correct!',
-                user,
             });
         } else {
             return response.status(HttpStatus.UNAUTHORIZED).json({
