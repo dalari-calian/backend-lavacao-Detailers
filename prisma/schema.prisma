@@ -28,3 +28,13 @@ model Client {
   phone     String
 }
 
+model Car {
+  id            Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  modelName     String
+  carBrand      String
+  licensePlate  String
+  carColor      String
+  carOwner      String
+}
+
