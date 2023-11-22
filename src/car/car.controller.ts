@@ -35,6 +35,6 @@ export class CarController{
 
     @Put(':id')
     async updateCar(@Param('id') id: number,@Body() data: Car): Promise<Car> {
-    return this.carService.updateCar(id,data);
+        return this.carService.updateCar(id,data);
     }
 }

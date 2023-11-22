@@ -1,6 +1,6 @@
 import { PrismaService } from "src/prisma.service";
 import { Car } from "./car.model";
-import { Injectable } from "@nestjs/common";
+import { Injectable, ConflictException } from "@nestjs/common";
 
 @Injectable()
 export class CarService {
@@ -15,6 +15,13 @@ export class CarService {
     }
 
     async createCar(data:Car): Promise<Car> {
+        const existingCar = await this.prisma.car.findFirst({
+            where: { licensePlate: data.licensePlate },
+        });
+        if (existingCar) {
+            throw new ConflictException('Já existe um veículo cadastrado com esta placa!');
+        }
+
         return this.prisma.car.create({
             data,
         })
