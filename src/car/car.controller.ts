@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Req, Res, HttpStatus } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put, Req, Res, HttpStatus, Query } from "@nestjs/common";
 import { Car } from "./car.model";
 import { CarService } from "./car.service";
 import { Request, Response } from "express";
@@ -7,7 +7,7 @@ import { Request, Response } from "express";
 export class CarController{
 
     constructor(private readonly carService: CarService){}
-    
+
     @Get()
     async getAllCar(@Req() request:Request, @Res() response:Response ):Promise<any>{
         const result =  await this.carService.getAllCar()
@@ -16,6 +16,22 @@ export class CarController{
             message: "Successfully fetch data!",
             result: result 
         })
+    }
+
+    @Get('validate-brand')
+    async validateCarBrand(@Query('carBrand') carBrand: string, @Res() response: Response): Promise<any> {
+        const isValidBrand = this.carService.isValidCarBrand(carBrand);
+
+        if (isValidBrand) {
+            return response.status(HttpStatus.OK).json({
+                status: "Ok!",
+            });
+        } else {
+            return response.status(HttpStatus.BAD_REQUEST).json({
+                status: "Bad Request",
+                message: "Informe uma marca existente!",
+            });
+        }
     }
 
     @Post()
