@@ -1,6 +1,6 @@
 import { PrismaService } from "src/prisma.service";
 import { Car } from "./car.model";
-import { Injectable, ConflictException } from "@nestjs/common";
+import { Injectable, ConflictException, NotFoundException } from "@nestjs/common";
 
 @Injectable()
 export class CarService {
@@ -11,7 +11,14 @@ export class CarService {
     }
 
     async getCar(id:number): Promise<Car | null> {
-        return this.prisma.car.findUnique({where: {id:Number(id)}})
+        const car = await this.prisma.car.findUnique({
+            where: { id: Number(id) },
+        });
+        
+        if (!car) {
+            throw new NotFoundException('Veículo não encontrado');
+        }
+        return car;
     }
 
     async createCar(data:Car): Promise<Car> {
