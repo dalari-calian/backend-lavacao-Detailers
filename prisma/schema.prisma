@@ -36,6 +36,7 @@ model Car {
   licensePlate  String
   carColor      String
   carOwner      String
+  idCarOwner    Int
 }
 
 model Service {

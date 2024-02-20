@@ -43,6 +43,7 @@ export class CarService {
                 licensePlate: data.licensePlate,
                 carColor: data.carColor,
                 carOwner: data.carOwner,
+                idCarOwner: data.idCarOwner,
             }
         })
     }

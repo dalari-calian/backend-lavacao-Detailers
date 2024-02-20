@@ -9,4 +9,5 @@ export class Car implements Prisma.CarCreateInput {
     licensePlate: string;
     carColor: string;
     carOwner: string;
+    idCarOwner: number;
 }
