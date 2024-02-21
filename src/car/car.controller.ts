@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Req, Res, HttpStatus, Query } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put, Req, Res, HttpStatus, Query, HttpException } from "@nestjs/common";
 import { Car } from "./car.model";
 import { CarService } from "./car.service";
 import { Request, Response } from "express";
@@ -42,6 +42,15 @@ export class CarController{
     @Get(':id')
     async getCar(@Param('id') id:number):Promise<Car | null>{
         return this.carService.getCar(id)
+    }
+
+    @Get('by-client/:clientId')
+    async getCarsByClientId(@Param('clientId') clientId: number): Promise<Car[]> {
+        const cars = await this.carService.getCarsByClientId(Number(clientId));
+        if (cars.length > 0) {
+            throw new HttpException('O cliente possui veículos registrados em seu nome.', HttpStatus.BAD_REQUEST);
+        }
+        return null
     }
 
     @Delete(':id')

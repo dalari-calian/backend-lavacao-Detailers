@@ -34,8 +34,12 @@ export class ClientService {
     }
 
     async deleteClient(id:number): Promise<Client> {
-        return this.prisma.client.delete({
-            where: {id:Number(id)},
-        })
+        try {
+            return await this.prisma.client.delete({
+                where: {id:Number(id)},
+            });
+        } catch (error) {
+            throw error;
+        }
     }
 }

@@ -10,6 +10,12 @@ export class CarService {
         return this.prisma.car.findMany()
     }
 
+    async getCarsByClientId(clientId: number): Promise<Car[]> {
+        return this.prisma.car.findMany({
+            where: { idCarOwner : Number(clientId)}
+        })
+    }
+
     async getCar(id:number): Promise<Car | null> {
         const car = await this.prisma.car.findUnique({
             where: { id: Number(id) },

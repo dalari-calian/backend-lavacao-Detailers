@@ -806,7 +806,7 @@
     "picocolors" "^1.0.0"
     "tslib" "^2.6.0"
 
-"@prisma/client@^4.15.0":
+"@prisma/client@^4.16.2":
   "integrity" "sha512-qCoEyxv1ZrQ4bKy39GnylE8Zq31IRmm8bNhNbZx7bF2cU5aiCCnSa93J2imF88MBjn7J9eUQneNxUQVJdl/rPQ=="
   "resolved" "https://registry.npmjs.org/@prisma/client/-/client-4.16.2.tgz"
   "version" "4.16.2"
